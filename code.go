@@ -2,6 +2,65 @@ package vt100
 
 import "fmt"
 
+func ForegroundColors() ColorCodes {
+	return ColorCodes{
+		Black:   30,
+		Red:     31,
+		Green:   32,
+		Yellow:  33,
+		Blue:    34,
+		Magenta: 35,
+		Cyan:    36,
+		White:   37,
+	}
+}
+
+func BackgroundColors() ColorCodes {
+	return ColorCodes{
+		Black:   40,
+		Red:     41,
+		Green:   42,
+		Yellow:  43,
+		Blue:    44,
+		Magenta: 45,
+		Cyan:    46,
+		White:   47,
+	}
+}
+
+type ColorCodes struct {
+	Black   Code
+	Red     Code
+	Green   Code
+	Yellow  Code
+	Blue    Code
+	Magenta Code
+	Cyan    Code
+	White   Code
+}
+
+func Attributes() AttributeCodes {
+	return AttributeCodes{
+		Reset:      0,
+		Bright:     1,
+		Dim:        2,
+		Underscore: 4,
+		Blink:      5,
+		Reverse:    7,
+		Hidden:     8,
+	}
+}
+
+type AttributeCodes struct {
+	Reset      Code
+	Bright     Code
+	Dim        Code
+	Underscore Code
+	Blink      Code
+	Reverse    Code
+	Hidden     Code
+}
+
 type Code uint
 
 func (me Code) Bytes() []byte {
@@ -11,31 +70,3 @@ func (me Code) Bytes() []byte {
 func (me Code) String() string {
 	return fmt.Sprintf("\033[%vm", uint(me))
 }
-
-func Background(color Code) Code {
-	return Code(color + 10)
-}
-
-const (
-	CodeReset      Code = 0 //	Reset all attributes
-	CodeBright     Code = 1 //	Bright
-	CodeDim        Code = 2 //	Dim
-	CodeUnderscore Code = 4 //	Underscore
-	CodeBlink      Code = 5 //	Blink
-	CodeReverse    Code = 7 //	Reverse
-	CodeHidden     Code = 8 //	Hidden
-
-	// Foreground Colours
-	Black   Code = 30 //	Black
-	Red     Code = 31 //	Red
-	Green   Code = 32 //	Green
-	Yellow  Code = 33 //	Yellow
-	Blue    Code = 34 //	Blue
-	Magenta Code = 35 //	Magenta
-	Cyan    Code = 36 //	Cyan
-	White   Code = 37 //	White
-)
-
-/*
-https://www2.ccs.neu.edu/research/gpc/VonaUtils/vona/terminal/vtansi.htm#colors
-*/

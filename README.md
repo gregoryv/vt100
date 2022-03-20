@@ -2,7 +2,7 @@
 
 ## Quick start
 
-    $ go get github.com/gregoryv/vt100
+    $ go get github.com/gregoryv/vt100/code
 	
 Use color
 
@@ -10,6 +10,6 @@ Use color
 import "github.com/gregoryv/vt100"
 
 func main() {
-	fmt.Println(vt100.GREEN, "hello", vt100.RESET)
+	fmt.Println(Green, "hello", Reset)
 }
 ```
