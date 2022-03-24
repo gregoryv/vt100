@@ -57,3 +57,10 @@ func TestVisualInspectBG(t *testing.T) {
 	t.Log(bg.White)
 	// t.Fail()
 }
+
+func BenchmarkCode(b *testing.B) {
+	c := Code(31)
+	for i := 0; i < b.N; i++ {
+		c.Bytes()
+	}
+}
