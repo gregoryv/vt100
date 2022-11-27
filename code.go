@@ -78,6 +78,19 @@ type AttributeCodes struct {
 	Hidden     Code
 }
 
+func (a *AttributeCodes) ByName(v string) Code {
+	m := map[string]Code{
+		"reset":      a.Reset,
+		"bright":     a.Bright,
+		"dim":        a.Dim,
+		"underscore": a.Underscore,
+		"blink":      a.Blink,
+		"reverse":    a.Reverse,
+		"hidden":     a.Hidden,
+	}
+	return m[strings.ToLower(v)]
+}
+
 type Code uint
 
 func (me Code) Bytes() []byte {
