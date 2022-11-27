@@ -1,6 +1,7 @@
 package vt100
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -25,18 +26,18 @@ func TestForegroundColors(t *testing.T) {
 func TestVisualInspectFG(t *testing.T) {
 	defer func() {
 		vt := Attributes()
-		t.Log(vt.Reset)
+		fmt.Println(vt.Reset)
 	}()
 
 	fg := ForegroundColors()
-	t.Log(fg.Black)
-	t.Log(fg.Red)
-	t.Log(fg.Green)
-	t.Log(fg.Yellow)
-	t.Log(fg.Blue)
-	t.Log(fg.Magenta)
-	t.Log(fg.Cyan)
-	t.Log(fg.White)
+	t.Log("Black", fg.ByName("Black"), "Black")
+	t.Log("Red", fg.ByName("Red"), "Red")
+	t.Log("Green", fg.ByName("Green"), "Green")
+	t.Log("Yellow", fg.ByName("Yellow"), "Yellow")
+	t.Log("Blue", fg.ByName("Blue"), "Blue")
+	t.Log("Magenta", fg.ByName("Magenta"), "Magenta")
+	t.Log("Cyan", fg.ByName("Cyan"), "Cyan")
+	t.Log("White", fg.ByName("White"), "White")
 	// t.Fail()
 }
 

@@ -1,6 +1,9 @@
 package vt100
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func ForegroundColors() ColorCodes {
 	return ColorCodes{
@@ -37,6 +40,20 @@ type ColorCodes struct {
 	Magenta Code
 	Cyan    Code
 	White   Code
+}
+
+func (c *ColorCodes) ByName(v string) Code {
+	m := map[string]Code{
+		"black":   c.Black,
+		"red":     c.Red,
+		"green":   c.Green,
+		"yellow":  c.Yellow,
+		"blue":    c.Blue,
+		"magenta": c.Magenta,
+		"cyan":    c.Cyan,
+		"white":   c.White,
+	}
+	return m[strings.ToLower(v)]
 }
 
 func Attributes() AttributeCodes {
