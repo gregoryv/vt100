@@ -5,6 +5,24 @@ import (
 	"testing"
 )
 
+func TestParseCodes(t *testing.T) {
+	if _, err := ParseCodes("red;blink"); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := ParseCodes("bgblue"); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := ParseCodes("bgnosuch"); err == nil {
+		t.Fatal("bgnosuch should fail")
+	}
+
+	// unknown attributes always return reset
+	if _, err := ParseCodes("bgred;nosuch"); err != nil {
+		t.Fatal(err)
+	}
+
+}
+
 func TestCode(t *testing.T) {
 	c := Code(31)
 	s := c.String()

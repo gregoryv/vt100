@@ -6,6 +6,7 @@ and this project adheres to http://semver.org/spec/v2.0.0.html.
 
 ## [unreleased]
 
+- Add ParseCodes
 - Add method AttributeCodes.ByName
 
 ## [0.3.0] 2022-11-27

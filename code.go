@@ -1,9 +1,51 @@
 package vt100
 
 import (
+	"bytes"
 	"fmt"
 	"strings"
 )
+
+// ParseCodeBytes groups all parsed codes as one byteslice
+func ParseCodeBytes(v string) ([]byte, error) {
+	codes, err := ParseCodes(v)
+	if err != nil {
+		return nil, err
+	}
+	var buf bytes.Buffer
+	for _, c := range codes {
+		buf.Write(c.Bytes())
+	}
+	return buf.Bytes(), nil
+}
+
+// ParseCodes returns a list of codes from a multicode string.
+// Example: red;bgwhite;blink
+func ParseCodes(v string) ([]Code, error) {
+	names := strings.Split(v, ";")
+	res := make([]Code, 0, len(names))
+	bg := BackgroundColors()
+	fg := ForegroundColors()
+	at := Attributes()
+
+	for _, name := range names {
+		switch {
+		case strings.HasPrefix(name, "bg"):
+			name = name[2:]
+			if v := bg.ByName(name); v == 0 {
+				return nil, fmt.Errorf("%s: invalid background color", name)
+			} else {
+				res = append(res, v)
+			}
+		case fg.ByName(name) > 0:
+			res = append(res, fg.ByName(name))
+
+		default:
+			res = append(res, at.ByName(name))
+		}
+	}
+	return res, nil
+}
 
 func ForegroundColors() ColorCodes {
 	return ColorCodes{
