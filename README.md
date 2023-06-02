@@ -2,7 +2,7 @@
 
 ## Quick start
 
-    $ go get github.com/gregoryv/vt100/code
+    $ go get github.com/gregoryv/vt100
 	
 Use color
 
